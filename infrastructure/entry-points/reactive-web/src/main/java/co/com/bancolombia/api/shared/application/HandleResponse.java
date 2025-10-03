@@ -1,6 +1,5 @@
 package co.com.bancolombia.api.shared.application;
 
-import co.com.bancolombia.api.shared.domain.response.SuccessApiResponse;
 import co.com.bancolombia.model.shared.cqrs.ContextData;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatus;
@@ -11,12 +10,11 @@ import reactor.core.publisher.Mono;
 @UtilityClass
 public class HandleResponse {
 
-    public static Mono<ServerResponse> createSuccessResponse(ContextData contextData,
-                                                             HttpStatus status, ServerRequest serverRequest) {
+    public static Mono<ServerResponse> createSuccessResponse(ServerRequest serverRequest,
+                                                             ContextData contextData,
+                                                             HttpStatus status) {
         return ServerResponse
                 .status(status)
                 .build();
-                //.headers(buildHeaders(serverRequest, contextData))
-                //.bodyValue(SuccessApiResponse.response(contextData));
     }
 }

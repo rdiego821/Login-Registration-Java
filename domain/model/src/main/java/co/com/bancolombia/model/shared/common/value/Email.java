@@ -11,4 +11,17 @@ public class Email extends AbstractString {
 
     @Override
     public String getValue() { return value; }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Email email = (Email) o;
+        return value.equals(email.value);
+    }
 }
