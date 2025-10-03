@@ -1,6 +1,7 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
+	implementation project(':login-registration-repo')
 	implementation project(':reactive-web')
     implementation project(':model')
     implementation project(':usecase')

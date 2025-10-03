@@ -1,10 +1,6 @@
 package co.com.bancolombia.api.signup.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,25 +10,34 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SignUpRequest {
 
-    @Valid
-    @NotNull(message = "email no puede ser nulo")
-    @Pattern(
-            regexp = "^[a-zA-Z0-9._%+-]{1,30}@[a-zA-Z0-9.-]{1,61}$",
-            message = "el formato del email no es valido"
-    )
-    @JsonProperty("email")
-    private String email;
+    private Email email;
+    private Password password;
+    private Name name;
 
-    @Valid
-    @NotNull(message = "password no puede ser nulo")
-    @Size(min = 8, message = "password con longitud invalida")
-    @JsonProperty("password")
-    private String password;
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Email {
+        private String value;
+    }
 
-    @Valid
-    @NotNull(message = "name no puede ser nulo")
-    @JsonProperty("name")
-    private String name;
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Password {
+        private String value;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class Name {
+        private String value;
+    }
 }
