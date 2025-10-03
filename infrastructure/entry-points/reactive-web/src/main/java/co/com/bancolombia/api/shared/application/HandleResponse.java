@@ -15,7 +15,8 @@ public class HandleResponse {
                                                              HttpStatus status, ServerRequest serverRequest) {
         return ServerResponse
                 .status(status)
+                .build();
                 //.headers(buildHeaders(serverRequest, contextData))
-                .bodyValue(SuccessApiResponse.response(contextData));
+                //.bodyValue(SuccessApiResponse.response(contextData));
     }
 }
