@@ -1,12 +1,25 @@
 package co.com.bancolombia.model.shared.cqrs;
 
-import lombok.AllArgsConstructor;
+import co.com.bancolombia.model.shared.common.value.MessageId;
+import co.com.bancolombia.model.shared.common.value.XRequestId;
+import co.com.bancolombia.model.shared.log.model.Log;
 import lombok.Data;
-import java.util.UUID;
 
 @Data
-@AllArgsConstructor
 public class ContextData {
-    private final UUID messageId;
-    private final UUID xRequestId;
+    private final MessageId messageId;
+    private final XRequestId xRequestId;
+    private Log log;
+
+    public ContextData(String messageId, String xRequestId) {
+        this.messageId = new MessageId(messageId);
+        this.xRequestId = resolveXRequestId(messageId, xRequestId);
+    }
+
+    private XRequestId resolveXRequestId(String messageId, String xRequestId) {
+        if (xRequestId != null && !xRequestId.isBlank()) {
+            return new XRequestId(xRequestId);
+        }
+        return new XRequestId(messageId);
+    }
 }

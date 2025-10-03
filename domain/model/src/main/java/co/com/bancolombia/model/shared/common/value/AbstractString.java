@@ -1,5 +1,8 @@
 package co.com.bancolombia.model.shared.common.value;
 
+import co.com.bancolombia.model.shared.exception.BusinessException;
+import co.com.bancolombia.model.shared.exception.ConstantBusinessException;
+
 import java.util.regex.Pattern;
 
 public abstract class AbstractString {
@@ -17,7 +20,8 @@ public abstract class AbstractString {
         this(inputValue);
         if (!pattern.matcher(this.value).matches()) {
             var message = "Invalid value for %s:%s. It must match the pattern %s";
-            throwError(message.formatted(this.getClass().getSimpleName(), value, pattern.toString()));
+            throw new BusinessException(ConstantBusinessException.INVALID_EMAIL_FORMAT,
+                    message.formatted(this.getClass().getSimpleName(), value, pattern.toString()));
         }
     }
 
@@ -25,7 +29,9 @@ public abstract class AbstractString {
         this(inputValue);
         if (this.value.length() < minLength) {
             var message = "Invalid value for %s:%s. Its length must be grater than or equal to %d";
-            throwError(message.formatted(this.getClass().getSimpleName(), value, minLength));
+
+            throw new BusinessException(ConstantBusinessException.WEAK_PASSWORD,
+                    message.formatted(this.getClass().getSimpleName(), value, minLength));
         }
     }
 

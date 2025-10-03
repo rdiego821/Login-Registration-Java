@@ -1,6 +1,6 @@
 package co.com.bancolombia.loginregistrationrepo.signup.application;
 
-import co.com.bancolombia.loginregistrationrepo.shared.loginregistration.infra.UserRepository;
+import co.com.bancolombia.loginregistrationrepo.signup.infra.SignUpRepository;
 import co.com.bancolombia.model.shared.cqrs.Command;
 import co.com.bancolombia.model.shared.cqrs.ContextData;
 import co.com.bancolombia.model.signup.gateway.SignUpProcessGateway;
@@ -13,15 +13,12 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class SignUpAdapter implements SignUpProcessGateway {
 
-    private final UserRepository userRepository;
+    private final SignUpRepository signUpRepository;
 
     @Override
     public Mono<Void> signUpProcess(Command<SignUpInformation, ContextData> command) {
-        userRepository.save(command.payload())
-          .subscribe(
-          unused -> System.out.println("Usuario guardado"),
-          error -> System.err.println("Error al guardar usuario: " + error.getMessage())
-        );
+        signUpRepository.save(command.payload())
+          .subscribe();
         return Mono.empty();
     }
 }

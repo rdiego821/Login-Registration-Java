@@ -6,4 +6,10 @@ import lombok.experimental.UtilityClass;
 public class CodeMessage {
     public static final String MISSING_REQUIRED_FIELDS_MESSAGE = "Faltan parámetros obligatorios";
     public static final String SERVICE_ERROR_MESSAGE = "Ha ocurrido un error interno en el servicio";
+    public static final String MISSING_REQUIRED_HEADERS_MESSAGE = "Faltan cabeceras obligatorias";
+    public static final String WEAK_PASSWORD = "Contraseña debil";
+    public static final String INVALID_EMAIL_FORMAT = "Formato no valido del email";
+    public static final String EMAIL_ALREADY_EXISTS = "El email ya existe";
+    public static final String INVALID_CREDENTIALS = "Credenciales no validas";
+    public static final String USER_NOT_FOUND = "Usuario no encontrado";
 }
