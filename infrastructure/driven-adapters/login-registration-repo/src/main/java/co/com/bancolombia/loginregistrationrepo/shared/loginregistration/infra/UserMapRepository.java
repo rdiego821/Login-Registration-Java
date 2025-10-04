@@ -17,16 +17,21 @@ public class UserMapRepository implements SignUpRepository {
 
     @Override
     public Mono<Void> save(SignUpInformation user) {
+        return emailExists(user.getEmail())
+                .flatMap(exists -> {
+                    if (exists) {
+                        return Mono.error(new IllegalArgumentException("El correo electrónico ya está en uso."));
+                    }
+                    userStorage.put(user.getEmail(), user);
+                    return Mono.empty();
+                });
+    }
+
+    @Override
+    public Mono<Boolean> emailExists(Email email) {
         return Mono.defer(() -> {
-            if (userStorage.containsKey(user.getEmail())) {
-                return Mono.error(new IllegalArgumentException("El correo electrónico ya está en uso."));
-            }
-            userStorage.put(user.getEmail(), user);
-            return Mono.empty();
-        })
-        .onErrorMap(BusinessException.class, error -> {
-            System.out.println("Error detectado: " + error.getMessage());
-            return error;
-        }).then();
+            boolean exists = userStorage.containsKey(email);
+            return Mono.just(exists);
+        });
     }
 }

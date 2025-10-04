@@ -17,8 +17,6 @@ public class SignUpAdapter implements SignUpProcessGateway {
 
     @Override
     public Mono<Void> signUpProcess(Command<SignUpInformation, ContextData> command) {
-        signUpRepository.save(command.payload())
-          .subscribe();
-        return Mono.empty();
+        return signUpRepository.save(command.payload());
     }
 }

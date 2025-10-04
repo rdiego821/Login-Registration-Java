@@ -21,7 +21,7 @@ public class BusinessExceptionECS extends RuntimeException {
         super(message);
         this.metaInfo = MetaInfo.builder().build();
         this.optionalInfo = new HashMap<>();
-        this.constantBusinessException = ConstantBusinessException.DEFAULT_EXCEPTION;
+        this.constantBusinessException = ConstantBusinessException.UNEXPECTED_ERROR;
     }
 
     public BusinessExceptionECS(ConstantBusinessException message) {
@@ -36,7 +36,7 @@ public class BusinessExceptionECS extends RuntimeException {
 
     private static ConstantBusinessException validateMessage(ConstantBusinessException message) {
         return (message == null)
-                ? ConstantBusinessException.DEFAULT_EXCEPTION
+                ? ConstantBusinessException.UNEXPECTED_ERROR
                 : message;
     }
 

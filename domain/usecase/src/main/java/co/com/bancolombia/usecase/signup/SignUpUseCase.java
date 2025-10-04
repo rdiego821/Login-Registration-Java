@@ -17,10 +17,14 @@ public class SignUpUseCase {
     private final SignUpProcessGateway signUpProcessGateway;
 
     public Mono<Void> signUpProcess(Command<SignUpInformation, ContextData> command) {
-        signUpProcessGateway.signUpProcess(command)
-                .onErrorResume(error -> Mono.error(new BusinessException(
-                        ConstantBusinessException.EMAIL_ALREADY_EXISTS, error.toString())))
-                .thenReturn(Mono.empty());
-        return Mono.empty();
+        return signUpProcessGateway.signUpProcess(command)
+                .onErrorMap(error -> {
+                    if (error instanceof IllegalArgumentException) {
+                        return new BusinessException(
+                                ConstantBusinessException.EMAIL_ALREADY_EXISTS,
+                                error.getMessage());
+                    }
+                    return error;
+                });
     }
 }

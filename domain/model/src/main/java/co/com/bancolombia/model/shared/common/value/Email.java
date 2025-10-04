@@ -3,7 +3,7 @@ package co.com.bancolombia.model.shared.common.value;
 import java.util.regex.Pattern;
 
 public class Email extends AbstractString {
-    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9._%+-]{1,30}@[a-zA-Z0-9.-]{1,61}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^(?!.*[.]{2})[a-zA-Z0-9._%+-]{1,64}@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
 
     public Email(String value) {
         super(value, EMAIL_PATTERN);

@@ -10,13 +10,10 @@ import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 public enum ConstantBusinessException implements ErrorManagement {
-    DEFAULT_EXCEPTION(HTTP_INTERNAL_ERROR,
+    UNEXPECTED_ERROR(HTTP_INTERNAL_ERROR,
             CodeMessage.SERVICE_ERROR_MESSAGE,
             InternalMessage.UNKNOWN_ERROR),
     MISSING_REQUIRED_FIELDS_EXCEPTION(HTTP_CONFLICT,
-            CodeMessage.MISSING_REQUIRED_FIELDS_MESSAGE,
-            InternalMessage.MISSING_REQUIRED_FIELDS_ERROR),
-    MISSING_REQUIRED_FIELDS_SIGNUP_EXCEPTION(HTTP_CONFLICT,
             CodeMessage.MISSING_REQUIRED_FIELDS_MESSAGE,
             InternalMessage.MISSING_REQUIRED_FIELDS_ERROR),
     MISSING_REQUIRED_HEADERS_EXCEPTION(HTTP_BAD_REQUEST,
@@ -42,7 +39,11 @@ public enum ConstantBusinessException implements ErrorManagement {
             InternalMessage.INVALID_CREDENTIALS),
     USER_NOT_FOUND(HTTP_NOT_FOUND,
             CodeMessage.USER_NOT_FOUND,
-            InternalMessage.USER_NOT_FOUND);
+            InternalMessage.USER_NOT_FOUND),
+    MALFORMED_REQUEST(HTTP_BAD_REQUEST,
+            CodeMessage.MALFORMED_REQUEST,
+            InternalMessage.MALFORMED_REQUEST)
+    ;
 
     private final Integer status;
     private final String message;
