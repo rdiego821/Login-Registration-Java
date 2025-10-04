@@ -8,7 +8,6 @@ import co.com.bancolombia.model.shared.cqrs.ContextData;
 import co.com.bancolombia.model.shared.cqrs.Query;
 import co.com.bancolombia.model.shared.log.model.Log;
 import co.com.bancolombia.model.signin.model.SignInInformation;
-import co.com.bancolombia.model.signup.model.SignUpInformation;
 import co.com.bancolombia.usecase.signin.SignInUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
