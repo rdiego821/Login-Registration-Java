@@ -1,6 +1,6 @@
-package co.com.bancolombia.api.signup.infra;
+package co.com.bancolombia.api.signin.infra;
 
-import co.com.bancolombia.api.signup.application.SignUpHandler;
+import co.com.bancolombia.api.signin.application.SignInHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -10,9 +10,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class SignUpRouter {
+public class SignInRouter {
     @Bean
-    public RouterFunction<ServerResponse> signUpFunction(SignUpHandler handler) {
-        return route(POST("/signup"), handler::signUpUser);
+    public RouterFunction<ServerResponse> signInFunction(SignInHandler handler) {
+        return route(POST("/signin"), handler::signInUser);
     }
 }

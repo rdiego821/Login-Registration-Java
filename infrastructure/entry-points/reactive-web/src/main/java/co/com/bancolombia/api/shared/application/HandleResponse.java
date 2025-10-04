@@ -1,5 +1,6 @@
 package co.com.bancolombia.api.shared.application;
 
+import co.com.bancolombia.api.shared.domain.response.SuccessApiResponse;
 import co.com.bancolombia.model.shared.cqrs.ContextData;
 import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatus;
@@ -16,5 +17,13 @@ public class HandleResponse {
         return ServerResponse
                 .status(status)
                 .build();
+    }
+
+    public static Mono<ServerResponse> createSuccessResponseSignIn(ServerRequest serverRequest,
+                                                                   ContextData contextData,
+                                                                   HttpStatus status) {
+        return ServerResponse
+                .status(status)
+                .bodyValue(SuccessApiResponse.response());
     }
 }
