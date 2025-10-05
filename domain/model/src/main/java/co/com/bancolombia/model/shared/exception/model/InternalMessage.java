@@ -2,8 +2,8 @@ package co.com.bancolombia.model.shared.exception.model;
 
 public class InternalMessage {
     public static final String UNKNOWN_ERROR = "UNEXPECTED_ERROR";
-    public static final String MISSING_REQUIRED_FIELDS_ERROR = "Faltan campos obligatorios al " +
-            "crear el agregado CreateAuthorizationFlow";
+    public static final String MISSING_REQUIRED_FIELDS_ERROR = "Faltan campos obligatorios " +
+            "en el proceso de sign in / sign up";
     public static final String MISSING_REQUIRED_HEADERS_ERROR = "La cabecera message-id " +
             "es obligatoria";
     public static final String COMMAND_HANDLER_NOT_EXIST = "No se encontró un command handler asociado " +

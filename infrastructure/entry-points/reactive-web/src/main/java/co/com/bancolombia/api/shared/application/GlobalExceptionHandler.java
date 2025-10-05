@@ -7,13 +7,13 @@ import co.com.bancolombia.model.shared.bus.command.gateway.label.CommandBus;
 import co.com.bancolombia.model.shared.common.model.Constants;
 import co.com.bancolombia.model.shared.exception.BusinessException;
 import co.com.bancolombia.model.shared.exception.ConstantBusinessException;
-import co.com.bancolombia.model.shared.exception.ecs.BusinessExceptionECS;
 import co.com.bancolombia.usecase.shared.functionallog.SendLogUseCaseCommand;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.codec.DecodingException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.stereotype.Component;
@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 @Component
 @Order(-2)
 public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
-    public static final String MS_NAME = "ms_authorization_flows";
+    public static final String MS_NAME = "ms_login_registration";
     private final CommandBus commandBus;
 
     public GlobalExceptionHandler(ErrorAttributes errorAttributes, ApplicationContext applicationContext,
@@ -80,9 +80,13 @@ public class GlobalExceptionHandler extends AbstractErrorWebExceptionHandler {
     }
 
     public Mono<ServerResponse> unknownError(Throwable exception, ServerRequest request) {
-        var metaInfo = BusinessExceptionECS.MetaInfo.builder()
-                .messageId(request.headers().firstHeader(HeaderConstant.MESSAGE_ID.value()))
-                .build();
+
+        if(exception.getCause() instanceof DecodingException) {
+            var businessException = new BusinessException(ConstantBusinessException.MALFORMED_REQUEST,
+                    exception.getMessage());
+            return createResponseFromBusiness(businessException, request);
+        }
+
         var businessException = new BusinessException(ConstantBusinessException.UNKNOWN_ERROR_EXCEPTION,
                 exception.getMessage());
         return createResponseFromBusiness(businessException, request);
